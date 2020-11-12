@@ -7,6 +7,7 @@ def main():
     import argparse
     parser = argparse.ArgumentParser()
     parser.add_argument('--recipients', required=True)
+    parser.add_argument('--test_mode', required=False, default=False)
     args = parser.parse_args()
     
     r = requests.get('http://weerlive.nl/api/json-data-10min.php?key=demo&locatie=Amsterdam')
@@ -22,7 +23,7 @@ def main():
        
     text = "Hallo, het gaat morgen of overmorgen vriezen. Zet je plantjes binnen! Gr. Mink"
     
-    if (min_temp_morgen < 1 or min_temp_overmorgen < 1): # Het gaat vriezen
+    if (min_temp_morgen < 1 or min_temp_overmorgen < 1) or (parser.test_mode): # Het gaat vriezen
         import sendgrid
         sg =sendgrid.SendGridClient(sendgrid_user, sendgrid_pass)
         message = sendgrid.Mail(subject='Het gaat vriezen! Zet je planten binnen.',
