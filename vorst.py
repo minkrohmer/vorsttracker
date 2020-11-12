@@ -23,7 +23,7 @@ def main():
        
     text = "Hallo, het gaat morgen of overmorgen vriezen. Zet je plantjes binnen! Gr. Mink"
     
-    if (min_temp_morgen < 1 or min_temp_overmorgen < 1) or (parser.test_mode): # Het gaat vriezen
+    if (min_temp_morgen < 1 or min_temp_overmorgen < 1) or (args.test_mode): # Het gaat vriezen
         import sendgrid
         sg =sendgrid.SendGridClient(sendgrid_user, sendgrid_pass)
         message = sendgrid.Mail(subject='Het gaat vriezen! Zet je planten binnen.',
