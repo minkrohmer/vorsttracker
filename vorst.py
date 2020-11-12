@@ -4,6 +4,11 @@ import sys
 
 # +
 def main():
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--recipients', required=True)
+    args = parser.parse_args()
+    
     r = requests.get('http://weerlive.nl/api/json-data-10min.php?key=demo&locatie=Amsterdam')
     
     j = r.json()
@@ -26,7 +31,7 @@ def main():
     else:
         return
     
-    for to in ['minkrohmer@gmail.com', 'vivian_toemen@hotmail.com']:
+    for to in args.recipients.split(','):
         message.add_to(to)
     
     status, msg = sg.send(message)
